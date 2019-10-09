@@ -2,6 +2,7 @@ package com.shopshopista.carritoss.controllers.v1;
 
 import com.shopshopista.carritoss.models.DetalleVenta;
 import com.shopshopista.carritoss.models.Venta;
+import com.shopshopista.carritoss.pojos.RQ.VentasRQ;
 import com.shopshopista.carritoss.pojos.VentaPOST;
 import com.shopshopista.carritoss.repositoryes.VentaREPO;
 import java.util.ArrayList;
@@ -59,6 +60,12 @@ public class VentaCTR {
         ve.setDetalle_venta(dves);
 
         return VR.save(ve);
+    }
+
+    @RequestMapping(value = "/page/{idCliente}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<VentasRQ> getForCliente(@PathVariable long idCliente) {
+        return VR.getForPageCliente(idCliente);
     }
 
 }

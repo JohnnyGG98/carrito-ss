@@ -38,11 +38,4 @@ public class DetalleVentaCTR {
         return DVR.getOne(id);
     }
     
-    @RequestMapping(value = "/guardar", method = RequestMethod.POST)
-    @ResponseBody
-    @CrossOrigin
-    public DetalleVenta save(@Valid @RequestBody DetalleVenta dv){
-        return DVR.save(dv);
-    }
-    
 }
