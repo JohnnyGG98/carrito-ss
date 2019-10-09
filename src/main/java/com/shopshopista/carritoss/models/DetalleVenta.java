@@ -1,6 +1,7 @@
 package com.shopshopista.carritoss.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,52 +21,56 @@ import javax.persistence.Table;
 @Table(
         name = "\"DetalleVenta\"",
         schema = "venta"
-        
 )
-public class DetalleVenta {
-    
+public class DetalleVenta implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_detalle_venta")
     private Long id_detalle_venta;
-    
+
     // Foraneas 
     @JsonBackReference
     @JoinColumn(name = "id_venta")
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Venta venta;
-    
+
     @Column(
-            name = "id_producto", 
+            name = "id_producto",
             nullable = false
     )
     private Long id_producto;
-    
+
     // Columnas
-    
     @Column(
-            name = "deve_num_producto", 
+            name = "deve_num_producto",
             columnDefinition = "integer DEFAULT '0'"
     )
-    private int deve_num_producto = 0;
-    
+    private int deve_num_producto = 1;
+
     @Column(
-            name = "deve_precio_unitario", 
+            name = "deve_precio_unitario",
             columnDefinition = "numeric(10, 5) DEFAULT '0'"
     )
     private double deve_precio_unitario = 0;
-    
+
     @Column(
-            name = "deve_total", 
+            name = "deve_total",
             columnDefinition = "numeric(15, 5) DEFAULT '0'"
     )
     private double deve_total = 0;
-    
+
     @Column(
             name = "deve_activo",
-            columnDefinition="boolean DEFAULT 'true'"
+            columnDefinition = "boolean DEFAULT 'true'"
     )
-    private boolean deve_activo = true; 
+    private boolean deve_activo = true;
+
+    @Column(
+            name = "deve_tiene_iva",
+            columnDefinition = "boolean DEFAULT 'false'"
+    )
+    private boolean deve_tiene_iva = false;
 
     public Long getId_detalle_venta() {
         return id_detalle_venta;
@@ -75,11 +80,20 @@ public class DetalleVenta {
         this.id_detalle_venta = id_detalle_venta;
     }
 
+    public Venta getVenta() {
+        return venta;
+    }
+
+    public void setVenta(Venta venta) {
+        this.venta = venta;
+    }
+
     public Long getId_producto() {
         return id_producto;
     }
 
     public void setId_producto(Long id_producto) {
+        this.id_producto = id_producto;
     }
 
     public int getDeve_num_producto() {
@@ -114,12 +128,12 @@ public class DetalleVenta {
         this.deve_activo = deve_activo;
     }
 
-    public Venta getVenta() {
-        return venta;
+    public boolean isDeve_tiene_iva() {
+        return deve_tiene_iva;
     }
 
-    public void setVenta(Venta venta) {
-        this.venta = venta;
+    public void setDeve_tiene_iva(boolean deve_tiene_iva) {
+        this.deve_tiene_iva = deve_tiene_iva;
     }
-    
+
 }

@@ -1,6 +1,7 @@
 package com.shopshopista.carritoss.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -23,95 +24,95 @@ import javax.persistence.Table;
         name = "\"Ventas\"",
         schema = "venta"
 )
-public class Venta {
-    
+public class Venta implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_venta")
     private Long id_venta;
-    
+
     @Column(
-            name = "id_cliente", 
+            name = "id_cliente",
             nullable = false
     )
     private Long id_cliente;
-    
+
     @Column(
-            name = "vent_cliente_identificacion", 
-            length = 20, 
-            columnDefinition="character varying(20) DEFAULT '0000000000'"
+            name = "vent_cliente_identificacion",
+            length = 20,
+            columnDefinition = "character varying(20) DEFAULT '0000000000'"
     )
     private String vent_cliente_identificacion = "0000000000";
-    
+
     @Column(
             name = "vent_cliente_nombre",
-            length = 150, 
+            length = 255,
             nullable = false,
-            columnDefinition="character varying(150) DEFAULT ''"
+            columnDefinition = "character varying(255) DEFAULT ''"
     )
     private String vent_cliente_nombre = "";
-    
+
     @Column(
             name = "vent_cliente_celular",
-            length = 15, 
-            columnDefinition="character varying(15) DEFAULT ''"
+            length = 15,
+            columnDefinition = "character varying(15) DEFAULT ''"
     )
     private String vent_cliente_celular = "";
-    
+
     @Column(
             name = "vent_cliente_telefono",
-            length = 15, 
-            columnDefinition="character varying(15) DEFAULT ''"
+            length = 15,
+            columnDefinition = "character varying(15) DEFAULT ''"
     )
     private String vent_cliente_telefono = "";
-    
+
     @Column(
             name = "vent_cliente_correo",
-            length = 50, 
-            columnDefinition="character varying(50) DEFAULT ''"
+            length = 50,
+            columnDefinition = "character varying(75) DEFAULT ''"
     )
     private String vent_cliente_correo = "";
-    
+
     @Column(
             name = "vent_cliente_direccion",
-            length = 200, 
-            columnDefinition="character varying(200) DEFAULT ''"
+            length = 255,
+            columnDefinition = "character varying(255) DEFAULT ''"
     )
     private String vent_cliente_direccion = "";
-    
+
     @Column(
             name = "vent_fecha_ingreso",
-            columnDefinition="timestamp DEFAULT 'now()'"
+            columnDefinition = "timestamp DEFAULT 'now()'"
     )
     private LocalDateTime vent_fecha_ingreso = ZonedDateTime.now(ZoneId.of("America/Guayaquil")).toLocalDateTime();
-    
+
     @Column(
             name = "vent_subtotal",
-            columnDefinition="numeric(15, 5) DEFAULT '0'"
+            columnDefinition = "numeric(15, 5) DEFAULT '0'"
     )
     private double vent_subtotal = 0;
-    
+
     @Column(
             name = "vent_iva",
-            columnDefinition="numeric(5, 2) DEFAULT '12'"
+            columnDefinition = "numeric(5, 2) DEFAULT '12'"
     )
     private double vent_iva = 12;
-    
+
     @Column(
             name = "vent_total",
-            columnDefinition="numeric(15, 5) DEFAULT '0'"
+            columnDefinition = "numeric(15, 5) DEFAULT '0'"
     )
     private double vent_total = 0;
-    
+
     // Referencias 
     @JsonManagedReference()
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL)
     private List<DetalleVenta> detalle_venta;
-    
+
     @Column(
             name = "vent_activo",
             nullable = false,
-            columnDefinition="boolean DEFAULT 'true'"
+            columnDefinition = "boolean DEFAULT 'true'"
     )
     private boolean vent_activo = true;
 
@@ -211,6 +212,14 @@ public class Venta {
         this.vent_total = vent_total;
     }
 
+    public List<DetalleVenta> getDetalle_venta() {
+        return detalle_venta;
+    }
+
+    public void setDetalle_venta(List<DetalleVenta> detalle_venta) {
+        this.detalle_venta = detalle_venta;
+    }
+
     public boolean isVent_activo() {
         return vent_activo;
     }
@@ -219,13 +228,4 @@ public class Venta {
         this.vent_activo = vent_activo;
     }
 
-    public List<DetalleVenta> getDetalle_venta() {
-        return detalle_venta;
-    }
-
-    public void setDetalle_venta(List<DetalleVenta> detalle_venta) {
-        this.detalle_venta = detalle_venta;
-    }
-    
-    
 }

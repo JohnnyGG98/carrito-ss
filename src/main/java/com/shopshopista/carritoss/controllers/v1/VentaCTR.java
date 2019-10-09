@@ -1,7 +1,10 @@
 package com.shopshopista.carritoss.controllers.v1;
 
+import com.shopshopista.carritoss.models.DetalleVenta;
 import com.shopshopista.carritoss.models.Venta;
+import com.shopshopista.carritoss.pojos.VentaPOST;
 import com.shopshopista.carritoss.repositoryes.VentaREPO;
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,29 +22,43 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/v1/venta")
+@CrossOrigin
 public class VentaCTR {
-    
+
     @Autowired
     private VentaREPO VR;
-    
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     @ResponseBody
-    @CrossOrigin
-    public List<Venta> getAll(){
+    public List<Venta> getAll() {
         return VR.findAll();
     }
-    
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    @CrossOrigin
-    public Venta getOne(@PathVariable Long id){
+    public Venta getOne(@PathVariable Long id) {
         return VR.getOne(id);
     }
-    
+
     @RequestMapping(value = "/guardar", method = RequestMethod.POST)
     @ResponseBody
-    @CrossOrigin
-    public Venta save(@Valid @RequestBody Venta v){
-        return VR.save(v);
+    public Venta save(@Valid @RequestBody VentaPOST v) {
+
+        Venta ve = new Venta();
+        List<DetalleVenta> dves = new ArrayList<>();
+
+        v.getDetalle().forEach(dv -> {
+            DetalleVenta dve = new DetalleVenta();
+            dve.setVenta(ve);
+            dve.setId_producto(dv.getId_producto());
+            dve.setDeve_num_producto(dv.getDeve_num_producto());
+            dves.add(dve);
+        });
+
+        ve.setId_cliente(v.getId_cliente());
+        ve.setDetalle_venta(dves);
+
+        return VR.save(ve);
     }
+
 }

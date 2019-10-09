@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
  * @author gus
  */
 @Repository
-public interface VentaREPO extends JpaRepository<Venta, Long>{
+public interface VentaREPO extends JpaRepository<Venta, Long> {
     
 }
