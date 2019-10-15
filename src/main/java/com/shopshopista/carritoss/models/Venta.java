@@ -53,13 +53,6 @@ public class Venta implements Serializable {
     private String vent_cliente_nombre = "";
 
     @Column(
-            name = "vent_cliente_celular",
-            length = 15,
-            columnDefinition = "character varying(15) DEFAULT ''"
-    )
-    private String vent_cliente_celular = "";
-
-    @Column(
             name = "vent_cliente_telefono",
             length = 15,
             columnDefinition = "character varying(15) DEFAULT ''"
@@ -87,10 +80,22 @@ public class Venta implements Serializable {
     private LocalDateTime vent_fecha_ingreso = ZonedDateTime.now(ZoneId.of("America/Guayaquil")).toLocalDateTime();
 
     @Column(
-            name = "vent_subtotal",
+            name = "vent_subtotal_iva",
             columnDefinition = "numeric(15, 5) DEFAULT '0'"
     )
-    private double vent_subtotal = 0;
+    private double vent_subtotal_iva = 0;
+
+    @Column(
+            name = "vent_subtotal_sin_iva",
+            columnDefinition = "numeric(15, 5) DEFAULT '0'"
+    )
+    private double vent_subtotal_sin_iva = 0;
+
+    @Column(
+            name = "vent_total_iva",
+            columnDefinition = "numeric(8, 5) DEFAULT '0'"
+    )
+    private double vent_total_iva = 0;
 
     @Column(
             name = "vent_iva",
@@ -148,14 +153,6 @@ public class Venta implements Serializable {
         this.vent_cliente_nombre = vent_cliente_nombre;
     }
 
-    public String getVent_cliente_celular() {
-        return vent_cliente_celular;
-    }
-
-    public void setVent_cliente_celular(String vent_cliente_celular) {
-        this.vent_cliente_celular = vent_cliente_celular;
-    }
-
     public String getVent_cliente_telefono() {
         return vent_cliente_telefono;
     }
@@ -188,14 +185,6 @@ public class Venta implements Serializable {
         this.vent_fecha_ingreso = vent_fecha_ingreso;
     }
 
-    public double getVent_subtotal() {
-        return vent_subtotal;
-    }
-
-    public void setVent_subtotal(double vent_subtotal) {
-        this.vent_subtotal = vent_subtotal;
-    }
-
     public double getVent_iva() {
         return vent_iva;
     }
@@ -226,6 +215,30 @@ public class Venta implements Serializable {
 
     public void setVent_activo(boolean vent_activo) {
         this.vent_activo = vent_activo;
+    }
+
+    public double getVent_subtotal_iva() {
+        return vent_subtotal_iva;
+    }
+
+    public void setVent_subtotal_iva(double vent_subtotal_iva) {
+        this.vent_subtotal_iva = vent_subtotal_iva;
+    }
+
+    public double getVent_subtotal_sin_iva() {
+        return vent_subtotal_sin_iva;
+    }
+
+    public void setVent_subtotal_sin_iva(double vent_subtotal_sin_iva) {
+        this.vent_subtotal_sin_iva = vent_subtotal_sin_iva;
+    }
+
+    public double getVent_total_iva() {
+        return vent_total_iva;
+    }
+
+    public void setVent_total_iva(double vent_total_iva) {
+        this.vent_total_iva = vent_total_iva;
     }
 
 }
