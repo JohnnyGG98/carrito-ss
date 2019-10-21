@@ -8,16 +8,15 @@ import java.time.LocalDateTime;
  */
 public interface VentasRQ {
 
-    /*long id_venta;
-    LocalDateTime vent_fecha_ingreso; 
-    double vent_subtotal;
-    double vent_total;
-    int num_productos;*/
     long getId_venta();
 
     LocalDateTime getVent_fecha_ingreso();
 
-    double getVent_subtotal();
+    double getVent_subtotal_iva();
+    
+    double getVent_subtotal_sin_iva();
+    
+    double getVent_total_iva();
 
     double getVent_total();
 

@@ -14,19 +14,23 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface VentaREPO extends JpaRepository<Venta, Long> {
-/*
+
     @Query(
             value = "SELECT "
             + " v.id_venta AS id_venta, "
             + " v.vent_fecha_ingreso AS vent_fecha_ingreso, "
-            + " v.vent_subtotal AS vent_subtotal, "
+            + " v.vent_subtotal_iva AS vent_subtotal_iva, "
+            + " v.vent_subtotal_sin_iva AS vent_subtotal_sin_iva, "
+            + " v.vent_total_iva AS vent_total_iva, "
             + " v.vent_total AS vent_total, "
             + " COUNT(v.id_venta) AS num_productos "
             + " FROM "
-            + " Venta v JOIN v.detalle_venta dv "
-            + " WHERE v.id_cliente = :idCliente"
-            + " GROUP BY v.id_venta "
+            + " venta.\"Ventas\" v JOIN venta.\"DetalleVenta\" dv "
+            + " ON dv.id_venta = v.id_venta "
+            + " WHERE v.id_cliente = :idCliente "
+            + " GROUP BY v.id_venta ",
+            nativeQuery = true
     )
-    public List<VentasRQ> getForPageCliente(@Param("idCliente") long idCliente);*/
+    public List<VentasRQ> getForPageCliente(@Param("idCliente") long idCliente);
 
 }
