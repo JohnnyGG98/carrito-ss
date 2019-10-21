@@ -61,11 +61,11 @@ public class VentaCTR {
 
         return VR.save(ve);
     }
-
+/*
     @RequestMapping(value = "/page/{idCliente}", method = RequestMethod.GET)
     @ResponseBody
     public List<VentasRQ> getForCliente(@PathVariable long idCliente) {
         return VR.getForPageCliente(idCliente);
-    }
+    }*/
 
 }
