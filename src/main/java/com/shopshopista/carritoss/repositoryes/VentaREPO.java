@@ -19,16 +19,17 @@ public interface VentaREPO extends JpaRepository<Venta, Long> {
             value = "SELECT "
             + " v.id_venta AS id_venta, "
             + " v.vent_fecha_ingreso AS vent_fecha_ingreso, "
-            + " v.vent_subtotal_iva AS vent_subtotal_iva, "
-            + " v.vent_subtotal_sin_iva AS vent_subtotal_sin_iva, "
-            + " v.vent_total_iva AS vent_total_iva, "
-            + " v.vent_total AS vent_total, "
+            + " COALESCE(v.vent_subtotal_iva, 0.0) AS vent_subtotal_iva, "
+            + " COALESCE(v.vent_subtotal_sin_iva, 0.0) AS vent_subtotal_sin_iva, "
+            + " COALESCE(v.vent_total_iva, 0.0) AS vent_total_iva, "
+            + " COALESCE(v.vent_total, 0.0) AS vent_total, "
             + " COUNT(v.id_venta) AS num_productos "
             + " FROM "
             + " venta.\"Ventas\" v JOIN venta.\"DetalleVenta\" dv "
             + " ON dv.id_venta = v.id_venta "
             + " WHERE v.id_cliente = :idCliente "
-            + " GROUP BY v.id_venta ",
+            + " GROUP BY v.id_venta "
+            + " ORDER BY vent_fecha_ingreso ",
             nativeQuery = true
     )
     public List<VentasRQ> getForPageCliente(@Param("idCliente") long idCliente);
